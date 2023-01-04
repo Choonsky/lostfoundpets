@@ -22,7 +22,7 @@ public class MongoConfig {
     }
 
     @Bean
-    public ReactiveMongoTemplate mongoTemplate() throws Exception {
+    public ReactiveMongoTemplate reactiveMongoTemplate() throws Exception {
         return new ReactiveMongoTemplate(mongo(), "lostfoundpets");
     }
 }

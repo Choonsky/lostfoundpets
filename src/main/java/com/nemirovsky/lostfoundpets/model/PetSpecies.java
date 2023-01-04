@@ -11,9 +11,9 @@ public enum PetSpecies {
     HAMPSTER ("Hampster or something like"),
     TURTLE ("Turtle of a kind"),
     OTHER ("Other animal");
-    private final String name;
+    private final String text;
 
-    PetSpecies(String name) {
-        this.name = name;
+    PetSpecies(String text) {
+        this.text = text;
     }
 }
