@@ -2,6 +2,7 @@ package com.nemirovsky.lostfoundpets;
 
 import com.nemirovsky.lostfoundpets.model.Pet;
 import com.nemirovsky.lostfoundpets.repository.PetRepository;
+import com.nemirovsky.lostfoundpets.service.DbInitService;
 import com.nemirovsky.lostfoundpets.service.SequenceGeneratorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -15,17 +16,10 @@ import reactor.core.publisher.Mono;
 @SpringBootApplication
 public class LostfoundpetsApplication implements CommandLineRunner {
 
-    private final ReactiveMongoTemplate reactiveMongoTemplate;
+    private final DbInitService dbInitService;
 
-    private final PetRepository pets;
-
-    private final SequenceGeneratorService sequenceGeneratorService;
-
-    public LostfoundpetsApplication(ReactiveMongoTemplate reactiveMongoTemplate,
-                                    SequenceGeneratorService sequenceGeneratorService, PetRepository pets) {
-        this.reactiveMongoTemplate = reactiveMongoTemplate;
-        this.sequenceGeneratorService = sequenceGeneratorService;
-        this.pets = pets;
+    public LostfoundpetsApplication(DbInitService dbInitService) {
+        this.dbInitService = dbInitService;
     }
 
     public static void main(String[] args) {
@@ -33,27 +27,8 @@ public class LostfoundpetsApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        setup();
+    public void run(String... args) {
+        dbInitService.setup();
     }
 
-    private void setup() {
-        log.info("Start initialization...");
-        Pet p1 = new Pet();
-        Pet p2 = new Pet();
-        Pet p3 = new Pet();
-        Pet p4 = new Pet();
-        Pet p5 = new Pet();
-        p1.setId(sequenceGeneratorService.generateSequence(Pet.SEQUENCE_NAME));
-        p1.setName("Charlie");
-        pets.deleteAll()
-                .thenMany(Flux.just(p1, p2, p3, p4, p5)
-                        .flatMap(this.pets::save))
-                .log()
-                .subscribe(
-                null,
-                null,
-                () -> log.info("done initialization...")
-        );
-    }
 }
