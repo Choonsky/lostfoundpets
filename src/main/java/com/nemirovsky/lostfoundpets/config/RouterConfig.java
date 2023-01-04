@@ -1,5 +1,6 @@
 package com.nemirovsky.lostfoundpets.config;
 
+import com.nemirovsky.lostfoundpets.handler.PetHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;

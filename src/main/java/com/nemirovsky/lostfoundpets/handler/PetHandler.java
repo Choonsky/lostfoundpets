@@ -1,5 +1,7 @@
 package com.nemirovsky.lostfoundpets.handler;
 
+import com.nemirovsky.lostfoundpets.model.Pet;
+import com.nemirovsky.lostfoundpets.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,50 +16,50 @@ public class PetHandler {
 
     private final PetService petService;
 
-    public Mono<ServerResponse> getAllDocuments(ServerRequest request) {
+    public Mono<ServerResponse> getAllPets(ServerRequest request) {
         return ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(petService.getAllDocuments(), OcrDocument.class);
+                .body(petService.getAllPets(), Pet.class);
     }
 
-    public Mono<ServerResponse> getUserById(ServerRequest request) {
+    public Mono<ServerResponse> getPetById(ServerRequest request) {
         return petService
-                .findById(request.pathVariable("docId"))
-                .flatMap(user -> ServerResponse
+                .findById(request.pathVariable("petId"))
+                .flatMap(pet -> ServerResponse
                         .ok()
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(user, OcrDocument.class)
+                        .body(pet, Pet.class)
                 )
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
 
     public Mono<ServerResponse> create(ServerRequest request) {
-        Mono<OcrDocument> doc = request.bodyToMono(OcrDocument.class);
+        Mono<Pet> pet = request.bodyToMono(Pet.class);
 
-        return doc
-                .flatMap(d -> ServerResponse
+        return pet
+                .flatMap(p -> ServerResponse
                         .status(HttpStatus.CREATED)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(petService.createDocument(d), OcrDocument.class)
+                        .body(petService.createPet(p), Pet.class)
                 );
     }
 
-    public Mono<ServerResponse> updateUserById(ServerRequest request) {
-        String id = request.pathVariable("docId");
-        Mono<OcrDocument> updatedDoc = request.bodyToMono(OcrDocument.class);
+    public Mono<ServerResponse> updatePetById(ServerRequest request) {
+        String id = request.pathVariable("petId");
+        Mono<Pet> updatedPet = request.bodyToMono(Pet.class);
 
-        return updatedDoc
-                .flatMap(d -> ServerResponse
+        return updatedPet
+                .flatMap(p -> ServerResponse
                         .ok()
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(petService.updateDocument(id, d), OcrDocument.class)
+                        .body(petService.updatePet(id, p), Pet.class)
                 );
     }
 
-    public Mono<ServerResponse> deleteUserById(ServerRequest request){
-        return petService.deleteDocument(request.pathVariable("docId"))
-                .flatMap(d -> ServerResponse.ok().body(d, OcrDocument.class))
+    public Mono<ServerResponse> deletePetById(ServerRequest request){
+        return petService.deletePet(request.pathVariable("petId"))
+                .flatMap(p -> ServerResponse.ok().body(p, Pet.class))
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
 }

@@ -26,10 +26,7 @@ public class Pet {
     private PetSpecies species;
     private String breed;
     private LocalDate birthDate;
-// TODO...
-    private Map<String, String> documentTextMap;
-    private OcrDocumentType documentType;
-    private String baseImageUrl;
-    private String correctedImageUrl;
-    private String extractedImageUrl;
+    private Location location;
+    private String[] imgSources;
+    private int mainImageIndex = 0;
 }
