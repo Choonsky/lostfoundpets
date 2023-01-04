@@ -30,7 +30,7 @@ public class DbInitService {
         log.info("Start DB initialization...");
         String nextId = sequenceGeneratorService.generateSequence(Pet.SEQUENCE_NAME);
         Pet p1 = new Pet.PetBuilder()
-                .id(nextId)
+                .id("P10001")
                 .name("Alpha")
                 .breed("Husky")
                 .species((PetSpecies.DOG))
@@ -40,9 +40,8 @@ public class DbInitService {
                 .imgSources(new String[]{nextId + "_A.jpg", nextId + "_B.jpg", nextId + "_C.jpg"})
                 .petStatus(PetStatus.FOUND)
                 .build();
-        nextId = sequenceGeneratorService.generateSequence(Pet.SEQUENCE_NAME);
         Pet p2 = new Pet.PetBuilder()
-                .id(sequenceGeneratorService.generateSequence(Pet.SEQUENCE_NAME))
+                .id("P10002")
                 .name("Bravo")
                 .breed("Persian")
                 .species((PetSpecies.CAT))
@@ -52,9 +51,8 @@ public class DbInitService {
                 .imgSources(new String[]{nextId + "_A.jpg", nextId + "_B.jpg", nextId + "_C.jpg"})
                 .petStatus(PetStatus.FOUND)
                 .build();
-        nextId = sequenceGeneratorService.generateSequence(Pet.SEQUENCE_NAME);
         Pet p3 = new Pet.PetBuilder()
-                .id(sequenceGeneratorService.generateSequence(Pet.SEQUENCE_NAME))
+                .id("P10003")
                 .name("Charlie")
                 .breed(null)
                 .species((PetSpecies.RABBIT))
@@ -64,9 +62,8 @@ public class DbInitService {
                 .imgSources(new String[]{nextId + "_A.jpg", nextId + "_B.jpg", nextId + "_C.jpg"})
                 .petStatus(PetStatus.LOST)
                 .build();
-        nextId = sequenceGeneratorService.generateSequence(Pet.SEQUENCE_NAME);
         Pet p4 = new Pet.PetBuilder()
-                .id(sequenceGeneratorService.generateSequence(Pet.SEQUENCE_NAME))
+                .id("P10004")
                 .name("Doodle")
                 .breed("Simple hamster")
                 .species((PetSpecies.HAMSTER))
@@ -76,9 +73,8 @@ public class DbInitService {
                 .imgSources(new String[]{nextId + "_A.jpg", nextId + "_B.jpg", nextId + "_C.jpg"})
                 .petStatus(PetStatus.LOST)
                 .build();
-        nextId = sequenceGeneratorService.generateSequence(Pet.SEQUENCE_NAME);
         Pet p5 = new Pet.PetBuilder()
-                .id(sequenceGeneratorService.generateSequence(Pet.SEQUENCE_NAME))
+                .id("P10005")
                 .name("Eugeniya")
                 .breed("Golden fish")
                 .species((PetSpecies.OTHER))
