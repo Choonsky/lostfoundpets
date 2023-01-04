@@ -1,0 +1,36 @@
+# Reactor Netty config (not Tomcat!)
+server:
+#  port: 9000
+  port: 8080
+  http2:
+    enabled: true
+
+spring:
+  application:
+    name: lostfoundpets
+  webflux:
+    base-path: /
+  data:
+    mongodb:
+#      authentication-database: admin
+      uri: mongodb://localhost:27017/lostfoundpets
+#      database: test
+  thymeleaf:
+# enables the hot-reloading of the templates, when the spring-boot-devtools dependency is included
+    prefix: file:src/main/resources/templates/
+
+logging:
+  level:
+    io:
+      reflectoring: DEBUG
+    org:
+      springframework:
+        web: INFO
+        data:
+          mongodb:
+            core:
+              ReactiveMongoTemplate: DEBUG
+    reactor:
+      netty:
+        http:
+          client: DEBUG
