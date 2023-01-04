@@ -8,7 +8,7 @@ public enum PetSpecies {
     CAT("Cat"),
     DOG ("Dog"),
     RABBIT ("Rabbit or hare"),
-    HAMPSTER ("Hampster or something like"),
+    HAMSTER ("Hamster or something like"),
     TURTLE ("Turtle of a kind"),
     OTHER ("Other animal");
     private final String text;
