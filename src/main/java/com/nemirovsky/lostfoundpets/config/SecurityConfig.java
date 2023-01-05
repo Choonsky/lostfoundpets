@@ -10,10 +10,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.authentication.logout.RedirectServerLogoutSuccessHandler;
-import org.springframework.security.web.server.authentication.logout.ServerLogoutSuccessHandler;
-
-import java.net.URI;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -24,20 +20,20 @@ public class SecurityConfig {
     @Bean
     public MapReactiveUserDetailsService userDetailsService() {
         UserDetails user = User
-                .withUsername("user")
-                .password(passwordEncoder().encode("password"))
+                .withUsername("user1")
+                .password(passwordEncoder().encode("password1"))
                 .roles("USER")
                 .build();
         return new MapReactiveUserDetailsService(user);
     }
-
+/*
     @Bean
     public ServerLogoutSuccessHandler logoutSuccessHandler(){
         RedirectServerLogoutSuccessHandler handler = new RedirectServerLogoutSuccessHandler();
-        handler.setLogoutSuccessUrl(URI.create("/"));
+        handler.setLogoutSuccessUrl(URI.create("/main"));
         return handler;
     }
-
+*/
     @Bean
     SecurityWebFilterChain http(ServerHttpSecurity http) throws Exception {
 
@@ -45,12 +41,13 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeExchange()
-                    .anyExchange().authenticated()
+    //                .anyExchange().authenticated()
+                    .anyExchange().permitAll()
                 .and()
                     .httpBasic().and()
-                    .formLogin()
-                .and()
-                    .logout().logoutSuccessHandler(logoutSuccessHandler());
+                    .formLogin();
+//                .and()
+//                    .logout().logoutSuccessHandler(logoutSuccessHandler());
         return http.build();
     }
 

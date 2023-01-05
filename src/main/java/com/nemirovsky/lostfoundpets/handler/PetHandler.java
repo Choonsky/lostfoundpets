@@ -8,13 +8,26 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import org.thymeleaf.spring6.context.webflux.IReactiveDataDriverContextVariable;
+import org.thymeleaf.spring6.context.webflux.ReactiveDataDriverContextVariable;
 import reactor.core.publisher.Mono;
+
+import java.util.Collections;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 public class PetHandler {
 
     private final PetService petService;
+
+    public Mono<ServerResponse> mainPage(ServerRequest request) {
+        IReactiveDataDriverContextVariable reactiveDataDrivenMode =
+                new ReactiveDataDriverContextVariable(petService.getAllPets(), 3);
+        final Map<String, IReactiveDataDriverContextVariable> model =
+                Collections.singletonMap("pets", reactiveDataDrivenMode);
+        return ServerResponse.ok().contentType(MediaType.TEXT_HTML).render("index", model);
+    }
 
     public Mono<ServerResponse> getAllPets(ServerRequest request) {
         return ServerResponse
@@ -57,7 +70,7 @@ public class PetHandler {
                 );
     }
 
-    public Mono<ServerResponse> deletePetById(ServerRequest request){
+    public Mono<ServerResponse> deletePetById(ServerRequest request) {
         return petService.deletePet(request.pathVariable("petId"))
                 .flatMap(p -> ServerResponse.ok().body(p, Pet.class))
                 .switchIfEmpty(ServerResponse.notFound().build());

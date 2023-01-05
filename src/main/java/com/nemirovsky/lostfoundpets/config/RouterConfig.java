@@ -16,6 +16,7 @@ public class RouterConfig {
     @Bean
     RouterFunction<ServerResponse> routes(PetHandler handler) {
         return route(GET("/pets").and(accept(MediaType.APPLICATION_JSON)), handler::getAllPets)
+                .andRoute(GET("/main").and(accept(MediaType.TEXT_HTML)), handler::mainPage)
                 .andRoute(GET("/pets/{petId}").and(contentType(MediaType.APPLICATION_JSON)), handler::getPetById)
                 .andRoute(POST("/pets").and(accept(MediaType.APPLICATION_JSON)), handler::create)
                 .andRoute(PUT("/pets/{petId}").and(contentType(MediaType.APPLICATION_JSON)), handler::updatePetById)

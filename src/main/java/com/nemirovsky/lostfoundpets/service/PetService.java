@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.Collections;
 
 @Service
@@ -30,7 +31,8 @@ public class PetService {
     }
 
     public Flux<Pet> getAllPets() {
-        return petRepository.findAll();
+        //Simulate big list of data, streaming with 1-second delay
+        return petRepository.findAll().delayElements(Duration.ofSeconds(1));
     }
 
     public Mono<Pet> findById(String petId) {

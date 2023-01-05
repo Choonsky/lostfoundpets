@@ -1,17 +1,21 @@
 package com.nemirovsky.lostfoundpets.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Immutable point in geo coordinates (latitude, longitude) with accuracy in km
  */
 @Getter
+@NoArgsConstructor
 public class Location {
 
+    // TODO: Also look here: https://www.baeldung.com/geo-tools
 
-    private final double latitude;
-    private final double longitude;
-    private final double accuracy;
+    private double latitude = 0;
+    private double longitude = 0;
+    private double accuracy = 0;
 
     /**
      * New geo point without accuracy
