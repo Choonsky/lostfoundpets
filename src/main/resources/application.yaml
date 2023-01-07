@@ -18,9 +18,9 @@ spring:
   thymeleaf:
 # enables the hot-reloading of the templates, when the spring-boot-devtools dependency is included
     prefix: file:src/main/resources/templates/
-  web:
-    resources:
-      static-locations: /META-INF/resources/, /resources/, /static/, /public/, /resources/templates/
+#  web:
+#    resources:
+#      static-locations: /META-INF/resources/, /resources/, /static/, /public/, /resources/templates/
 
 logging:
   level:

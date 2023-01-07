@@ -32,7 +32,8 @@ public class PetService {
 
     public Flux<Pet> getAllPets() {
         //Simulate big list of data, streaming with 1-second delay
-        return petRepository.findAll().delayElements(Duration.ofSeconds(1));
+        //return petRepository.findAll().delayElements(Duration.ofSeconds(1));
+        return petRepository.findAll();
     }
 
     public Mono<Pet> findById(String petId) {
