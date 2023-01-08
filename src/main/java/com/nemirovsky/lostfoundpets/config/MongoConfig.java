@@ -13,7 +13,8 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 public class MongoConfig {
     @Bean
     public MongoClient mongo() {
-        ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/lostfoundpets");
+        ConnectionString connectionString = new ConnectionString("mongodb://DocumentDBAdmin:KrolikEst_1@docdb-2023-01-08-13-20-47.cluster-cuk3aks6r1zn.ap-northeast-1.docdb\n" +
+                "      .amazonaws.com:27017/lostfoundpets?ssl=true&ssl_ca_certs=rds-combined-ca-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
@@ -22,7 +23,7 @@ public class MongoConfig {
     }
 
     @Bean
-    public ReactiveMongoTemplate reactiveMongoTemplate() throws Exception {
+    public ReactiveMongoTemplate reactiveMongoTemplate() {
         return new ReactiveMongoTemplate(mongo(), "lostfoundpets");
     }
 }
