@@ -1,8 +1,6 @@
 package com.nemirovsky.lostfoundpets.model;
 
-import com.nemirovsky.lostfoundpets.service.SequenceGeneratorService;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,7 +8,6 @@ import org.springframework.security.core.userdetails.User;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Map;
 
 @ToString
 @EqualsAndHashCode(of = {"id"})
