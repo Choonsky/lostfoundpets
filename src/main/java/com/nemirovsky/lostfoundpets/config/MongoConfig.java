@@ -12,7 +12,15 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 public class MongoConfig {
     @Bean
     public MongoClient mongo() {
-        ConnectionString connectionString = new ConnectionString("mongodb://DocumentDBAdmin:KrolikEst_1@lostfoundpets-notls.cluster-cuk3aks6r1zn.ap-northeast-1.docdb.amazonaws.com:27017/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false");
+
+        String truststore = "/tmp/certs/rds-truststore.jks";
+        String truststorePassword = "KrolikEst_1";
+
+        System.setProperty("javax.net.ssl.trustStore", truststore);
+        System.setProperty("javax.net.ssl.trustStorePassword", truststorePassword);
+
+        ConnectionString connectionString = new ConnectionString("mongodb://DocumentDBAdmin:KrolikEst_1@lostfountpets" +
+                "-docdb-tls.cluster-cuk3aks6r1zn.ap-northeast-1.docdb.amazonaws.com:27017/?ssl=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
