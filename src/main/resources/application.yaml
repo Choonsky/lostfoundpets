@@ -1,10 +1,8 @@
 # Reactor Netty config (not Tomcat!)
 server:
-  #port: 9000
-  #port: 8080
-#  http2:
-#    enabled: true
-  #  port: 443
+  port: 443
+  http2:
+    enabled: true
   ssl:
     key-store-type: PKCS12 # The format used for the keystore. It could be set to JKS in case it is a JKS file
     key-store: classpath:keystore/lostfoundpets.p12 # The path to the keystore containing the certificate
