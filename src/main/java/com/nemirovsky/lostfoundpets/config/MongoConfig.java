@@ -2,30 +2,47 @@ package com.nemirovsky.lostfoundpets.config;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
+import com.mongodb.MongoException;
+import com.mongodb.ServerApi;
+import com.mongodb.ServerApiVersion;
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
+import com.mongodb.reactivestreams.client.MongoDatabase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.bson.Document;
 
 @Configuration
 public class MongoConfig {
     @Bean
     public MongoClient mongo() {
 
-        String truststore = "/tmp/certs/rds-truststore.jks";
-        String truststorePassword = "KrolikEst_1";
+        String connectionString = "mongodb+srv://mongoUser:mongoPass@cluster0.2mggweu.mongodb.net/?retryWrites=true&w=majority";
 
-        System.setProperty("javax.net.ssl.trustStore", truststore);
-        System.setProperty("javax.net.ssl.trustStorePassword", truststorePassword);
-
-        ConnectionString connectionString = new ConnectionString("mongodb://DocumentDBAdmin:KrolikEst_1@lostfountpets" +
-                "-docdb-tls.cluster-cuk3aks6r1zn.ap-northeast-1.docdb.amazonaws.com:27017/?ssl=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false");
-        MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
-                .applyConnectionString(connectionString)
+        ServerApi serverApi = ServerApi.builder()
+                .version(ServerApiVersion.V1)
                 .build();
 
-        return MongoClients.create(mongoClientSettings);
+        MongoClientSettings settings = MongoClientSettings.builder()
+                .applyConnectionString(new ConnectionString(connectionString))
+                .serverApi(serverApi)
+                .build();
+
+/*
+        // Create a new client and connect to the server
+        try (MongoClient mongoClient = MongoClients.create(settings)) {
+            try {
+                // Send a ping to confirm a successful connection
+                MongoDatabase database = mongoClient.getDatabase("admin");
+                database.runCommand(new Document("ping", 1));
+                System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
+            } catch (MongoException e) {
+                e.printStackTrace();
+            }
+        }
+*/
+        return MongoClients.create(settings);
     }
 
     @Bean
