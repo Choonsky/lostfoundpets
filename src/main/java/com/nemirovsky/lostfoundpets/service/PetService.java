@@ -20,7 +20,6 @@ import java.util.Collections;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional
 public class PetService {
 
     private final ReactiveMongoTemplate reactiveMongoTemplate;

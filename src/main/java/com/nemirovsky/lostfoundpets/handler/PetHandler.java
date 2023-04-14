@@ -19,6 +19,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PetHandler {
 
+    private String lastMessage;
+
     private final PetService petService;
 
     public Mono<ServerResponse> mainPage(ServerRequest request) {
@@ -27,6 +29,22 @@ public class PetHandler {
         final Map<String, IReactiveDataDriverContextVariable> model =
                 Collections.singletonMap("pets", reactiveDataDrivenMode);
         return ServerResponse.ok().contentType(MediaType.TEXT_HTML).render("index", model);
+    }
+
+    public Mono<ServerResponse> printTelebotInfo(ServerRequest request) {
+        lastMessage = "<h1><center>Last message from Telebot:</h1>" + lastMessage;
+        return ServerResponse
+                .ok()
+                .contentType(MediaType.TEXT_HTML)
+                .body(Mono.just(lastMessage), String.class);
+    }
+
+    public Mono<ServerResponse> acceptTelebotInfo(ServerRequest request) {
+        Mono<String> update = request.bodyToMono(String.class);
+        lastMessage = update.block();
+        return ServerResponse
+                .ok()
+                .build();
     }
 
     public Mono<ServerResponse> getAllPets(ServerRequest request) {

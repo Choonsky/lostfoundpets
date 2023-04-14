@@ -26,14 +26,15 @@ public class SecurityConfig {
                 .build();
         return new MapReactiveUserDetailsService(user);
     }
-/*
-    @Bean
-    public ServerLogoutSuccessHandler logoutSuccessHandler(){
-        RedirectServerLogoutSuccessHandler handler = new RedirectServerLogoutSuccessHandler();
-        handler.setLogoutSuccessUrl(URI.create("/main"));
-        return handler;
-    }
-*/
+
+    /*
+        @Bean
+        public ServerLogoutSuccessHandler logoutSuccessHandler(){
+            RedirectServerLogoutSuccessHandler handler = new RedirectServerLogoutSuccessHandler();
+            handler.setLogoutSuccessUrl(URI.create("/main"));
+            return handler;
+        }
+    */
     @Bean
     SecurityWebFilterChain http(ServerHttpSecurity http) throws Exception {
 
@@ -41,11 +42,11 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeExchange()
-    //                .anyExchange().authenticated()
-                    .anyExchange().permitAll()
+                //                .anyExchange().authenticated()
+                .anyExchange().permitAll()
                 .and()
-                    .httpBasic().and()
-                    .formLogin();
+                .httpBasic().and()
+                .formLogin();
 //                .and()
 //                    .logout().logoutSuccessHandler(logoutSuccessHandler());
         return http.build();

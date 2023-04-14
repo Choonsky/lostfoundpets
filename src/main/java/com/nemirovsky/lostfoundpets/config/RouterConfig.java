@@ -22,7 +22,9 @@ public class RouterConfig {
                 .andRoute(GET("/pets/{petId}").and(contentType(MediaType.APPLICATION_JSON)), handler::getPetById)
                 .andRoute(POST("/pets").and(accept(MediaType.APPLICATION_JSON)), handler::create)
                 .andRoute(PUT("/pets/{petId}").and(contentType(MediaType.APPLICATION_JSON)), handler::updatePetById)
-                .andRoute(DELETE("/pets/{userId}").and(accept(MediaType.APPLICATION_JSON)), handler::deletePetById);
+                .andRoute(DELETE("/pets/{userId}").and(accept(MediaType.APPLICATION_JSON)), handler::deletePetById)
+                .andRoute(GET("/telebot-test").and(contentType(MediaType.APPLICATION_JSON)), handler::printTelebotInfo)
+                .andRoute(POST("/telebot-test").and(accept(MediaType.APPLICATION_JSON)), handler::acceptTelebotInfo);
     }
     @Bean
     public RouterFunction<ServerResponse> staticResourceRouter() {
