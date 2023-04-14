@@ -19,7 +19,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PetHandler {
 
-    private String lastMessage;
+    private Mono<String> lastMessage;
 
     private final PetService petService;
 
@@ -32,16 +32,14 @@ public class PetHandler {
     }
 
     public Mono<ServerResponse> printTelebotInfo(ServerRequest request) {
-        lastMessage = "<h1><center>Last message from Telebot:</h1>" + lastMessage;
         return ServerResponse
                 .ok()
                 .contentType(MediaType.TEXT_HTML)
-                .body(Mono.just(lastMessage), String.class);
+                .body(lastMessage, String.class);
     }
 
     public Mono<ServerResponse> acceptTelebotInfo(ServerRequest request) {
-        Mono<String> update = request.bodyToMono(String.class);
-        lastMessage = update.block();
+        lastMessage = request.bodyToMono(String.class);
         return ServerResponse
                 .ok()
                 .build();
