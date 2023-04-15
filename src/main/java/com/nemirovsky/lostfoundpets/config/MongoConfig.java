@@ -2,16 +2,13 @@ package com.nemirovsky.lostfoundpets.config;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
-import com.mongodb.MongoException;
 import com.mongodb.ServerApi;
 import com.mongodb.ServerApiVersion;
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
-import com.mongodb.reactivestreams.client.MongoDatabase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
-import org.bson.Document;
 
 @Configuration
 public class MongoConfig {
