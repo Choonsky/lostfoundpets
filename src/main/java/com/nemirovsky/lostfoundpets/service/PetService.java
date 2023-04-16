@@ -10,11 +10,9 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.Duration;
 import java.util.Collections;
 
 @Service
@@ -30,7 +28,7 @@ public class PetService {
     }
 
     public Flux<Pet> getAllPets() {
-        //Simulate big list of data, streaming with 1-second delay
+        //To simulate big list of data, streaming with 1-second delay, use
         //return petRepository.findAll().delayElements(Duration.ofSeconds(1));
         return petRepository.findAll();
     }

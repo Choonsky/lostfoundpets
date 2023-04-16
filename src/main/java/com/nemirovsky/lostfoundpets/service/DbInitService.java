@@ -6,11 +6,9 @@ import com.nemirovsky.lostfoundpets.model.PetSpecies;
 import com.nemirovsky.lostfoundpets.model.PetStatus;
 import com.nemirovsky.lostfoundpets.repository.PetRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service
@@ -27,7 +25,7 @@ public class DbInitService {
     }
 
     public void setup() {
-        log.info("Start DB initialization...");
+        log.info("Start DB populating with test pets...");
         String nextId = sequenceGeneratorService.generateSequence(Pet.SEQUENCE_NAME);
         Pet p1 = new Pet.PetBuilder()
                 .id("P10001")
@@ -88,7 +86,7 @@ public class DbInitService {
                 .thenMany(Flux.just(p1, p2, p3, p4, p5)
                         .flatMap(this.pets::save))
                 .log()
-                .subscribe(null, null, () -> log.info("done DB initialization..."));
+                .subscribe(null, null, () -> log.info("...done DB populating with test pets."));
     }
 
 }

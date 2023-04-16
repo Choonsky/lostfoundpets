@@ -31,20 +31,6 @@ public class PetHandler {
         return ServerResponse.ok().contentType(MediaType.TEXT_HTML).render("index", model);
     }
 
-    public Mono<ServerResponse> printTelebotInfo(ServerRequest request) {
-        return ServerResponse
-                .ok()
-                .contentType(MediaType.TEXT_HTML)
-                .body(lastMessage, String.class);
-    }
-
-    public Mono<ServerResponse> acceptTelebotInfo(ServerRequest request) {
-        lastMessage = request.bodyToMono(String.class);
-        return ServerResponse
-                .ok()
-                .build();
-    }
-
     public Mono<ServerResponse> getAllPets(ServerRequest request) {
         return ServerResponse
                 .ok()
