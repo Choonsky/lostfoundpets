@@ -1,6 +1,6 @@
 # Reactor Netty config (not Tomcat!)
 server:
-#  port: 443
+  port: 443
   http2:
     enabled: true
   ssl:
