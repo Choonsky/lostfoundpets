@@ -14,7 +14,7 @@
 <div id="content" class="container-fluid px-4">
     <div class="row justify-content-center gx-5">
         <div class="col-8">
-            <h2 class="text-center">Lost and Found Pets in you region</h2>
+            <h2 class="text-center">LostFoundPaws near you</h2>
             <div class="row">
                 <div class="col-xl-4" th:each="pet : ${pets}">
                     <a th:href="@{'/pet/' + ${pet.id}}">
