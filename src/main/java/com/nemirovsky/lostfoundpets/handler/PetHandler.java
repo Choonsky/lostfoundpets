@@ -39,14 +39,9 @@ public class PetHandler {
     }
 
     public Mono<ServerResponse> getPetById(ServerRequest request) {
-        return petService
-                .findById(request.pathVariable("petId"))
-                .flatMap(pet -> ServerResponse
-                        .ok()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(pet, Pet.class)
-                )
-                .switchIfEmpty(ServerResponse.notFound().build());
+        final Map<String, Mono<Pet>> model =
+                Collections.singletonMap("pet", petService.findById(request.pathVariable("petId")));
+        return ServerResponse.ok().contentType(MediaType.TEXT_HTML).render("pet", model);
     }
 
     public Mono<ServerResponse> create(ServerRequest request) {

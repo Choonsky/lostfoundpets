@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>LostFoundPaws main page</title>
+    <title>LostFoundPaws pet details</title>
     <!--/*/ <th:block th:insert="~{head :: head}"/> /*/-->
 </head>
 <body id="samples">
@@ -14,16 +14,13 @@
 <div id="content" class="container-fluid px-4">
     <div class="row justify-content-center gx-5">
         <div class="col-8">
-            <h2 class="text-center">Lost and Found Pets in you region</h2>
+            <h2 class="text-center" th:text="'LostFound Paw details: ' + ${pet.name}">LostFound Paw details</h2>
             <div class="row">
-                <div class="col-xl-4" th:each="pet : ${pets}">
-                    <a th:href="@{'/pet/' + ${pet.id}}">
-                    <div class="product-container p-3 border bg-light pet-parent">
-                        <img th:src="@{'/images/350x400/' + ${pet.id} + '_A_350x400.jpg'}" th:alt="${pet.id}">
+                <div class="col-xl-4">
+                        <img th:src="@{'/images/1400x1600/' + ${pet.id} + '_A_1600x1400.jpg'}" th:alt="${pet.id}">
                         <div th:text="${pet.petStatus}"
                              th:class="${pet.petStatus} + ' bottom-right rotated font-weight-bold px-36'"></div>
-                    </div>
-                    </a>
+                        <h3 th:text="'Name: ' + ${pet.name}"></h3>
                 </div>
             </div>
         </div>

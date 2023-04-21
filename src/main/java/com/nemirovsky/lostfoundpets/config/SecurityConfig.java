@@ -42,13 +42,13 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeExchange()
-                //                .anyExchange().authenticated()
+//                .anyExchange().authenticated()
                 .anyExchange().permitAll()
                 .and()
                 .httpBasic().and()
                 .formLogin();
 //                .and()
-//                    .logout().logoutSuccessHandler(logoutSuccessHandler());
+//                .logout().logoutSuccessHandler(logoutSuccessHandler());
         return http.build();
     }
 

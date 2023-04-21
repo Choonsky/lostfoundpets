@@ -19,10 +19,10 @@ public class RouterConfig {
     RouterFunction<ServerResponse> routes(PetHandler handler) {
         return route(GET("/pets").and(accept(MediaType.APPLICATION_JSON)), handler::getAllPets)
                 .andRoute(GET("/").and(accept(MediaType.TEXT_HTML)), handler::mainPage)
-                .andRoute(GET("/pets/{petId}").and(contentType(MediaType.APPLICATION_JSON)), handler::getPetById)
-                .andRoute(POST("/pets").and(accept(MediaType.APPLICATION_JSON)), handler::create)
-                .andRoute(PUT("/pets/{petId}").and(contentType(MediaType.APPLICATION_JSON)), handler::updatePetById)
-                .andRoute(DELETE("/pets/{userId}").and(accept(MediaType.APPLICATION_JSON)), handler::deletePetById);
+                .andRoute(GET("/pet/{petId}").and(accept(MediaType.TEXT_HTML)), handler::getPetById)
+                .andRoute(POST("/pet").and(accept(MediaType.APPLICATION_JSON)), handler::create)
+                .andRoute(PUT("/pet/{petId}").and(contentType(MediaType.APPLICATION_JSON)), handler::updatePetById)
+                .andRoute(DELETE("/pet/{userId}").and(accept(MediaType.APPLICATION_JSON)), handler::deletePetById);
     }
     @Bean
     public RouterFunction<ServerResponse> staticResourceRouter() {
